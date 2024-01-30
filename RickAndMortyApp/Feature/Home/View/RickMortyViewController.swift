@@ -45,7 +45,7 @@ final class RickMortyViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(RickMortyTableViewCell.self, forCellReuseIdentifier: RickMortyTableViewCell.Identifier.custom.rawValue)
-        tableView.rowHeight = self.view.frame.size.height * 0.2
+        tableView.rowHeight = self.view.frame.size.height * 0.15
         
         DispatchQueue.main.async {
             self.view.backgroundColor = .white

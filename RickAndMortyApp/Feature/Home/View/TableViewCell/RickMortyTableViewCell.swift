@@ -11,7 +11,8 @@ class RickMortyTableViewCell: UITableViewCell {
     
     private let customImage: UIImageView = UIImageView()
     private let title: UILabel = UILabel()
-    private let customDescription: UILabel = UILabel()
+    private let gender: UILabel = UILabel()
+    private let status: UILabel = UILabel()
     
     private let randomImage: String = "https://picsum.photos/200/300"
     
@@ -31,33 +32,41 @@ class RickMortyTableViewCell: UITableViewCell {
     private func configure() {
         addSubview(customImage)
         addSubview(title)
-        addSubview(customDescription)
-        title.font = .boldSystemFont(ofSize: 18)
-        customDescription.font = .italicSystemFont(ofSize: 10)
+        addSubview(gender)
+        addSubview(status)
+        title.textColor = .blue
+        title.font = .boldSystemFont(ofSize: 22)
+        gender.font = .systemFont(ofSize: 15)
+        status.font = .systemFont(ofSize: 15)
         
         customImage.snp.makeConstraints { (make) in
-            make.height.equalTo(100)
-            make.top.equalTo(contentView)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.width.height.equalTo(100)
+            make.leading.equalToSuperview().offset(10)
+            make.centerY.equalToSuperview()
         }
         
         title.snp.makeConstraints { (make) in
-            make.top.equalTo(customImage.snp.bottom).offset(10)
-            make.right.left.equalTo(contentView)
+            make.leading.equalTo(customImage.snp.trailing).offset(10)
+            make.top.equalTo(customImage)
         }
-
-        customDescription.snp.makeConstraints { (make) in
-            make.top.equalTo(title).offset(5)
-            make.right.left.equalTo(title)
-            make.bottom.equalToSuperview()
+        
+        gender.snp.makeConstraints { (make) in
+            make.leading.equalTo(title)
+            make.top.equalTo(title.snp.bottom).offset(-50)
+            make.trailing.bottom.equalToSuperview().inset(10)
+        }
+        
+        status.snp.makeConstraints { (make) in
+            make.leading.equalTo(gender)
+            make.top.equalTo(gender.snp.bottom).offset(-70)
+            make.trailing.bottom.equalToSuperview().inset(10)
         }
     }
     
-    
     func saveModel(model: Result) {
         title.text = model.name
-        customDescription.text = model.status
+        gender.text = model.gender
+        status.text = model.status
         customImage.af.setImage(withURL: URL(string: model.image ?? randomImage) ?? URL(string: randomImage)!)
     }
     
